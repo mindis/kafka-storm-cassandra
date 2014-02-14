@@ -1,0 +1,20 @@
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+compileJava.options.encoding = 'UTF-8'
+javadoc.options.encoding = 'UTF-8'
+buildDir = 'target'
+
+dependencies {
+    compile ('org.apache.kafka:kafka_2.10:0.8.0') {
+        exclude module: 'jms'
+        exclude module: 'jmxtools'
+        exclude module: 'jmxri'
+    }
+    compile 'storm:storm:0.8.2'
+    compile 'com.google.protobuf:protobuf-java:2.5.0'
+    compile 'org.apache.cassandra:apache-cassandra:2.0.5'
+}
+
