@@ -116,13 +116,4 @@ public class CassandraClient {
         m.setValue(new Random().nextInt(1));
         return m.build();
     }
-
-    public static void main(String args[]) {
-        CassandraClient client = new CassandraClient();
-        client.openClient();
-        client.useKeySpace("kafka");
-        StorageRequest lastMetric = createTestData("metric3");
-        client.insertData(lastMetric);
-        // client.closeClient();
-    }
 }

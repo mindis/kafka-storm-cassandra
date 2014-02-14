@@ -1,7 +1,6 @@
 package storm;
 
 import backtype.storm.Config;
-import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
 import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
@@ -15,10 +14,10 @@ import backtype.storm.topology.TopologyBuilder;
  */
 public class SimpleTopology {
     public static void main(String[] args) {
-        startStormTopology();
+        startStormTopology(args[0]);
     }
 
-    private static void startStormTopology() {
+    private static void startStormTopology(String topologyName) {
         TopologyBuilder builder = new TopologyBuilder();
         // 设置喷发节点并分配并发数，该并发数将会控制该对象在集群中的线程数。
         builder.setSpout("SimpleSpout", new SimpleSpout(), 1);
@@ -28,17 +27,17 @@ public class SimpleTopology {
         Config config = new Config();
         config.setDebug(true);
         config.setNumWorkers(1);
+        // 本地模式
+        // config.setMaxTaskParallelism(1);
+        // LocalCluster cluster = new LocalCluster();
+        // cluster.submitTopology("xxx", config, builder.createTopology());
 
-         config.setMaxTaskParallelism(1);
-         LocalCluster cluster = new LocalCluster();
-         cluster.submitTopology("xxx", config, builder.createTopology());
-
-//        try {
-//            StormSubmitter.submitTopology(topology, config, builder.createTopology());
-//        } catch (AlreadyAliveException e) {
-//            e.printStackTrace();
-//        } catch (InvalidTopologyException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            StormSubmitter.submitTopology(topologyName, config, builder.createTopology());
+        } catch (AlreadyAliveException e) {
+            e.printStackTrace();
+        } catch (InvalidTopologyException e) {
+            e.printStackTrace();
+        }
     }
 }

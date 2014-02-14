@@ -15,6 +15,7 @@ dependencies {
     }
     compile 'storm:storm:0.8.2'
     compile 'com.google.protobuf:protobuf-java:2.5.0'
-    compile 'org.apache.cassandra:apache-cassandra:2.0.5'
+    compile 'org.apache.cassandra:apache-cassandra:2.0.2'
+    compile 'org.apache.cassandra:cassandra-thrift:1.2.3'
 }
 
